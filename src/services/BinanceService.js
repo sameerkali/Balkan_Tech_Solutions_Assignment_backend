@@ -11,9 +11,24 @@ class BinanceService {
     });
   }
 
+  // async getSpotOHLCV(symbol, interval, limit) {
+  //   try {
+  //     const response = await this.axios.get('/api/v3/klines', {
+  //       params: {
+  //         symbol,
+  //         interval,
+  //         limit
+  //       }
+  //     });
+
+  //     return this.normalizeOHLCVData(response.data);
+  //   } catch (error) {
+  //     throw new Error(`Failed to fetch Binance spot data: ${error.message}`);
+  //   }
+  // }
   async getSpotOHLCV(symbol, interval, limit) {
     try {
-      const response = await this.axios.get('/api/v3/klines', {
+      const response = await this.axios.get('https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usdt&days=1&interval=minute', {
         params: {
           symbol,
           interval,
@@ -26,7 +41,6 @@ class BinanceService {
       throw new Error(`Failed to fetch Binance spot data: ${error.message}`);
     }
   }
-
   async getFuturesOHLCV(symbol, interval, limit) {
     try {
       const response = await this.axios.get('/fapi/v1/klines', {

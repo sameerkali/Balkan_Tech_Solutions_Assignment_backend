@@ -7,9 +7,9 @@ const config = {
   binance: {
     apiKey: process.env.BINANCE_API_KEY,
     apiSecret: process.env.BINANCE_API_SECRET,
-    baseUrl: 'https://api.binance.com',
-    wsBaseUrl: 'wss://stream.binance.com:9443/ws',
-    futuresWsUrl: 'wss://fstream.binance.com/ws'
+    baseUrl: 'https://testnet.binance.vision',
+    wsBaseUrl: 'wss://testnet.binance.vision/ws',
+    futuresWsUrl: 'wss://testnet.binance.vision/ws'
   }
 };
 
