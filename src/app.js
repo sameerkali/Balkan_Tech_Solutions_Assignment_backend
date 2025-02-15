@@ -14,6 +14,9 @@ app.use(cors());
 app.use(express.json());
 
 // Routes
+app.get('/', (req,res) => {
+  res.json({'status': 'up and running'})
+})
 app.use('/api', marketRoutes);
 
 // WebSocket setup
@@ -24,15 +27,15 @@ mongoose.connect(config.mongodb_uri)
   .then(() => console.log('Connected to MongoDB'))
   .catch(err => console.error('MongoDB connection error:', err));
 
-// Error handling middleware
+// Error handling
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(500).json({ error: 'Something broke!' });
+  res.status(500).json({ error: 'Something went wrong!' });
 });
 
-const PORT = config.port;
-server.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+server.listen(config.port, () => {
+  console.log(`Server running on port ${config.port}`);
 });
 
 export default app;
+

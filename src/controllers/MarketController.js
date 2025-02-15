@@ -1,17 +1,17 @@
-import ExchangeService from '../services/ExchangeService.js';
+import BinanceService from '../services/BinanceService.js';
 import { MarketData } from '../models/MarketData.js';
+
+const binanceService = new BinanceService();
 
 class MarketController {
   static async getSpotOHLCV(req, res) {
     try {
-      const { exchange, symbol, interval, limit } = req.query;
-      const exchangeService = new ExchangeService(exchange);
-      const data = await exchangeService.getSpotOHLCV(symbol, interval, parseInt(limit));
+      const { symbol, interval, limit = 100 } = req.query;
+      const data = await binanceService.getSpotOHLCV(symbol, interval, parseInt(limit));
       
       // Store data in MongoDB
       await MarketData.insertMany(
         data.map(candle => ({
-          exchange,
           market: 'spot',
           symbol,
           ...candle
@@ -26,14 +26,12 @@ class MarketController {
 
   static async getFuturesOHLCV(req, res) {
     try {
-      const { exchange, symbol, interval, limit } = req.query;
-      const exchangeService = new ExchangeService(exchange);
-      const data = await exchangeService.getFuturesOHLCV(symbol, interval, parseInt(limit));
+      const { symbol, interval, limit = 100 } = req.query;
+      const data = await binanceService.getFuturesOHLCV(symbol, interval, parseInt(limit));
       
       // Store data in MongoDB
       await MarketData.insertMany(
         data.map(candle => ({
-          exchange,
           market: 'futures',
           symbol,
           ...candle
@@ -48,4 +46,3 @@ class MarketController {
 }
 
 export default MarketController;
-
