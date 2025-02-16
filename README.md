@@ -5,7 +5,7 @@ This API provides real-time and historical cryptocurrency market data from Binan
 
 ## Base URL
 ```
-http://localhost:5000/api
+http://localhost:6969/api
 ```
 
 ## REST API Endpoints
@@ -32,7 +32,7 @@ GET /spot
 
 #### Sample Request
 ```javascript
-const response = await fetch('http://localhost:5000/api/spot?symbol=BTCUSDT&interval=1m&limit=100');
+const response = await fetch('http://localhost:6969/api/spot?symbol=BTCUSDT&interval=1m&limit=100');
 const data = await response.json();
 ```
 
@@ -65,7 +65,7 @@ The WebSocket server uses Socket.IO for real-time updates.
 ```javascript
 import { io } from 'socket.io-client';
 
-const socket = io('http://localhost:5000');
+const socket = io('http://localhost:6969');
 ```
 
 ### Subscribe to Market Updates
@@ -125,7 +125,7 @@ export const useMarketData = (symbol, interval = '1m') => {
       try {
         setLoading(true);
         const response = await fetch(
-          `http://localhost:5000/api/spot?symbol=${symbol}&interval=${interval}`
+          `http://localhost:6969/api/spot?symbol=${symbol}&interval=${interval}`
         );
         const jsonData = await response.json();
         setData(jsonData);
@@ -154,7 +154,7 @@ export const useTradeStream = (market, symbol) => {
   const [connected, setConnected] = useState(false);
 
   useEffect(() => {
-    const socket = io('http://localhost:5000');
+    const socket = io('http://localhost:6969');
 
     socket.on('connect', () => {
       setConnected(true);
@@ -293,7 +293,7 @@ export default App;
 ## Common Issues and Solutions
 
 ### CORS Issues
-If you encounter CORS errors, ensure your frontend application is running on an allowed origin (default: http://localhost:3000).
+If you encounter CORS errors, ensure your frontend application is running on an allowed origin (default: http://localhost:5173).
 
 ### WebSocket Connection Issues
 1. Check if the WebSocket server is running
