@@ -70,7 +70,6 @@ class WebSocketManager {
     const connectionKey = `${market}-${symbol}`;
     socket.leave(connectionKey);
 
-    // If no clients are listening, close the connection
     if (this.io.sockets.adapter.rooms.get(connectionKey)?.size === 0) {
       const ws = this.connections.get(connectionKey);
       if (ws) {
@@ -82,7 +81,6 @@ class WebSocketManager {
 
   handleDisconnect(socket) {
     console.log('Client disconnected');
-    // Clean up any remaining subscriptions
     for (const [connectionKey, ws] of this.connections.entries()) {
       if (this.io.sockets.adapter.rooms.get(connectionKey)?.size === 0) {
         ws.close();
@@ -109,7 +107,6 @@ class WebSocketManager {
         ws.close();
         this.connections.delete(connectionKey);
       }
-      // Only reconnect if there are still clients listening
       if (this.io.sockets.adapter.rooms.get(connectionKey)?.size > 0) {
         this.subscribeToMarket(market, symbol, this.io);
       }

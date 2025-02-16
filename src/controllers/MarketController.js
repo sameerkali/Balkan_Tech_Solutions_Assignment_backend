@@ -8,8 +8,7 @@ class MarketController {
     try {
       const { symbol, interval, limit = 100 } = req.query;
       const data = await binanceService.getSpotOHLCV(symbol, interval, parseInt(limit));
-      
-      // Store data in MongoDB
+
       await MarketData.insertMany(
         data.map(candle => ({
           market: 'spot',
@@ -29,7 +28,6 @@ class MarketController {
       const { symbol, interval, limit = 100 } = req.query;
       const data = await binanceService.getFuturesOHLCV(symbol, interval, parseInt(limit));
       
-      // Store data in MongoDB
       await MarketData.insertMany(
         data.map(candle => ({
           market: 'futures',

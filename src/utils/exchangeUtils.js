@@ -32,7 +32,6 @@ export const normalizeSymbol = (exchange, symbol) => {
         '4h': '240',
         '1d': 'D'
       },
-      // Add mappings for other exchanges
     };
     
     return intervalMap[exchange]?.[interval] || interval;
